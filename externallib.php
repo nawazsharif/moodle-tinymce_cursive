@@ -132,7 +132,7 @@ class cursive_json_func_data extends external_api {
         );
     }
 
-    public static function cursive_json_func(
+    public static function cursive_json_func (
         $resourceid = 0,
         $key = null,
         $keycode = null,
@@ -140,11 +140,12 @@ class cursive_json_func_data extends external_api {
         $cmid = 0,
         $modulename = 'quiz',
         $editorid = null
-    ) {
+    )
+    {
         require_login();
 
         global $USER, $SESSION, $DB, $CFG;
-        require_once($CFG->libdir. '/filestorage/file_storage.php');
+        require_once($CFG->libdir . '/filestorage/file_storage.php');
 
         $params = self::validate_parameters(
             self::cursive_json_func_parameters(),
@@ -189,6 +190,7 @@ class cursive_json_func_data extends external_api {
         if ($questionid) {
             $fname = $USER->id . '_' . $resourceid . '_' . $cmid . '_' . $questionid . '_attempt' . '.json';
         }
+        // file path
         $filename = __DIR__ . '/userdata/' . $fname;
         // Insert in database.
 
@@ -233,9 +235,24 @@ class cursive_json_func_data extends external_api {
         if (is_array($temparray)) {
             file_put_contents($filename, $jsondata);
         }
-        return $filename;
-    }
 
+        $filerec = $DB->get_record($table, ['cmid' => $cmid, 'modulename' => $modulename, 'userid' => $USER->id]);
+
+        // Saving the file to moodledata
+        $context = context_system::instance();
+        $fs = get_file_storage();
+        if ($fs->file_exists($context->id, 'tiny_cursive', 'attachment', $filerec->id, '/', $fname)) {
+            $file_get_from_moodledata = $fs->get_file($context->id, 'tiny_cursive', 'attachment', $filerec->id, '/', $fname);
+
+            $fs->delete_area_files($context->id, 'tiny_cursive', 'attachment', $filerec->id);
+            //delete then update
+
+            $savefile = $fs->create_file_from_pathname(array('contextid' => $context->id, 'component' => 'tiny_cursive', 'filearea' => 'attachment', 'itemid' => $filerec->id, 'filepath' => '/', 'filename' => $fname), $filename);
+        } else {
+            $savefile = $fs->create_file_from_pathname(array('contextid' => $context->id, 'component' => 'tiny_cursive', 'filearea' => 'attachment', 'itemid' => $filerec->id, 'filepath' => '/', 'filename' => $fname), $filename);
+        }
+            return $filename;
+    }
     public static function cursive_reports_func($coursename = 0, $quizname = null, $username = 'keyUp') {
         require_login();
         global $USER, $SESSION, $DB;
@@ -491,6 +508,9 @@ where uf.resourceid = $id
             ]
         );
 
+        $context = context_module::instance($cmid);
+        $hasCapabilityEditTest = has_capability('tiny_cursive/cursive:view', $context);
+
         $conditions = ["resourceid" => $id];
         $table = 'tiny_cursive_comments';
         $recs = $DB->get_records($table, $conditions);
@@ -715,7 +735,7 @@ where uf.userid = $id
         if (!isset($data->filename)) {
             $filename = $DB->get_record_sql('select filename from {tiny_cursive_files} where resourceid = :resourceid
   AND cmid = :cmid
-  AND modulename = :modulename', ['resourceid' => $id, 'cmid' => $cmid, 'modulename' => $modulename]);
+  AND modulename = :modulename', ['userid' => $id, 'cmid' => $cmid, 'modulename' => $modulename]);
 
             $data['filename'] = $filename->filename;
         }
@@ -761,6 +781,7 @@ where uf.userid = $id
                 'cmid' => $cmid,
             ]
         );
+
         $rec = get_user_submissions_data($id, $modulename, $cmid);
 
         return json_encode($rec);

@@ -22,6 +22,66 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+use MoodleHQ\editor\tiny\plugins\cursive\classes\forms\fileupload;
+
+
+/**
+ * Given an array with a file path, it returns the itemid and the filepath for the defined filearea.
+ *
+ * @param  string $filearea The filearea.
+ * @param  array  $args The path (the part after the filearea and before the filename).
+ * @return array The itemid and the filepath inside the $args path, for the defined filearea.
+ */
+function tiny_cursive_get_path_from_pluginfile(string $filearea, array $args) : array {
+    // cursive never has an itemid (the number represents the revision but it's not stored in database).
+    array_shift($args);
+
+    // Get the filepath.
+    if (empty($args)) {
+        $filepath = '/';
+    } else {
+        $filepath = '/' . implode('/', $args) . '/';
+    }
+
+    return [
+        'itemid' => 0,
+        'filepath' => $filepath,
+    ];
+}
+
+
+/**
+ * Serves the tiny_cursive files.
+ *
+ * @package  mod_tiny_cursive
+ * @category files
+ * @param stdClass $course course object
+ * @param stdClass $cm course module object
+ * @param stdClass $context context object
+ * @param string $filearea file area
+ * @param array $args extra arguments
+ * @param bool $forcedownload whether or not force download
+ * @param array $options additional options affecting the file serving
+ * @return bool false if file not found, does not return if found - just send the file
+ */
+function tiny_cursive_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options=array()) {
+    $itemid = array_shift($args);
+    $filename = array_pop($args);
+
+    if (!$args) {
+        $filepath = '/';
+    } else {
+        $filepath = '/' . implode('/', $args) . '/';
+    }
+
+    $fs = get_file_storage();
+
+    $file = $fs->get_file($context->id, 'tiny_cursive', $filearea, $itemid, $filepath, $filename);
+    if (!$file) {
+        return false;
+    }
+    send_stored_file($file, 0, 0, $forcedownload, $options);
+}
 function tiny_cursive_extend_navigation_course(\navigation_node $navigation, \stdClass $course, \context $context) {
     global $CFG, $PAGE, $SESSION;
 
@@ -132,4 +192,21 @@ function tiny_cursive_before_footer() {
     if ($PAGE->bodyid == 'page-course-view-participants') {
         $PAGE->requires->js_call_amd('tiny_cursive/append_participants_table', 'init', [$confidencethreshold, $showcomments]);
     }
+}
+
+
+function file_urlcreate ($context, $user)
+{
+    $fs = get_file_storage();
+    $files = $fs->get_area_files($context->id, 'tiny_cursive', 'attachment', $user->fileid, 'sortorder', false);
+
+    foreach ($files as $file) {
+        if ($file->get_filename() != '.') {
+            $fileurl = moodle_url::make_pluginfile_url($file->get_contextid(), $file->get_component(), $file->get_filearea(), $file->get_itemid(), $file->get_filepath(), $file->get_filename(), true);
+            // Display the image
+            $download_url = $fileurl->get_port() ? $fileurl->get_scheme() . '://' . $fileurl->get_host() . ':' . $fileurl->get_port() . $fileurl->get_path() : $fileurl->get_scheme() . '://' . $fileurl->get_host() . $fileurl->get_path();
+            return $download_url;
+        }
+    }
+    return false;
 }

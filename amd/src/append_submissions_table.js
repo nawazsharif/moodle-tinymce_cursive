@@ -73,7 +73,8 @@ define(["jquery", "core/ajax", "core/str", "core/templates", "./replay"], functi
 
                         var filepath ='';
                         if (data.res.filename){
-                            var filepath = M.cfg.wwwroot+'/lib/editor/tiny/plugins/cursive/userdata/'+ data.res.filename;
+                            // var filepath = M.cfg.wwwroot+'/lib/editor/tiny/plugins/cursive/userdata/'+ data.res.filename;
+                            var filepath = data.res.filename;
                         }
                         var score = data.res.score;
                         var icon = 'fa fa-circle-o';
