@@ -27,15 +27,13 @@ use moodleform;
 defined('MOODLE_INTERNAL') || die;
 require_once($CFG->libdir . '/formslib.php');
 
-class fileupload extends moodleform
-{
-    public function definition()
-    {
+class fileupload extends moodleform {
+    public function definition() {
         global $DB, $USER;
 
         $mform = $this->_form; // Don't forget the underscore!
 
-        $mform->addElement('hidden', 'draftid', ''); // Add elements to your form
+        $mform->addElement('hidden', 'draftid', ''); // Add elements to your form.
         $mform->addRule('draftid', get_string('maximumchars', '', 512), 'maxlength', 255, 'client');
     }
 }

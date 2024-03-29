@@ -33,7 +33,7 @@ use MoodleHQ\editor\tiny\plugins\cursive\classes\forms\fileupload;
  * @return array The itemid and the filepath inside the $args path, for the defined filearea.
  */
 function tiny_cursive_get_path_from_pluginfile(string $filearea, array $args) : array {
-    // cursive never has an itemid (the number represents the revision but it's not stored in database).
+    // Cursive never has an itemid (the number represents the revision but it's not stored in database).
     array_shift($args);
 
     // Get the filepath.
@@ -64,7 +64,7 @@ function tiny_cursive_get_path_from_pluginfile(string $filearea, array $args) : 
  * @param array $options additional options affecting the file serving
  * @return bool false if file not found, does not return if found - just send the file
  */
-function tiny_cursive_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options=array()) {
+function tiny_cursive_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options=[]) {
     $itemid = array_shift($args);
     $filename = array_pop($args);
 
@@ -195,17 +195,16 @@ function tiny_cursive_before_footer() {
 }
 
 
-function file_urlcreate ($context, $user)
-{
+function file_urlcreate ($context, $user) {
     $fs = get_file_storage();
     $files = $fs->get_area_files($context->id, 'tiny_cursive', 'attachment', $user->fileid, 'sortorder', false);
 
     foreach ($files as $file) {
         if ($file->get_filename() != '.') {
             $fileurl = moodle_url::make_pluginfile_url($file->get_contextid(), $file->get_component(), $file->get_filearea(), $file->get_itemid(), $file->get_filepath(), $file->get_filename(), true);
-            // Display the image
-            $download_url = $fileurl->get_port() ? $fileurl->get_scheme() . '://' . $fileurl->get_host() . ':' . $fileurl->get_port() . $fileurl->get_path() : $fileurl->get_scheme() . '://' . $fileurl->get_host() . $fileurl->get_path();
-            return $download_url;
+            // Display the image.
+            $downloadurl = $fileurl->get_port() ? $fileurl->get_scheme() . '://' . $fileurl->get_host() . ':' . $fileurl->get_port() . $fileurl->get_path() : $fileurl->get_scheme() . '://' . $fileurl->get_host() . $fileurl->get_path();
+            return $downloadurl;
         }
     }
     return false;

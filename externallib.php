@@ -140,8 +140,7 @@ class cursive_json_func_data extends external_api {
         $cmid = 0,
         $modulename = 'quiz',
         $editorid = null
-    )
-    {
+    ) {
         require_login();
 
         global $USER, $SESSION, $DB, $CFG;
@@ -190,7 +189,7 @@ class cursive_json_func_data extends external_api {
         if ($questionid) {
             $fname = $USER->id . '_' . $resourceid . '_' . $cmid . '_' . $questionid . '_attempt' . '.json';
         }
-        // file path
+        // File path.
         $filename = __DIR__ . '/userdata/' . $fname;
         // Insert in database.
 
@@ -238,11 +237,12 @@ class cursive_json_func_data extends external_api {
 
         $filerec = $DB->get_record($table, ['cmid' => $cmid, 'modulename' => $modulename, 'userid' => $USER->id]);
 
-        // Saving the file to moodledata
+        // Saving the file to moodledata.
         $context = context_system::instance();
         $fs = get_file_storage();
         if ($fs->file_exists($context->id, 'tiny_cursive', 'attachment', $filerec->id, '/', $fname)) {
-            $file_get_from_moodledata = $fs->get_file($context->id, 'tiny_cursive', 'attachment', $filerec->id, '/', $fname);
+            $file_get_from_moodledata = $fs->get_file($context->id, 'tiny_cursive',
+                'attachment', $filerec->id, '/', $fname);
 
             $fs->delete_area_files($context->id, 'tiny_cursive', 'attachment', $filerec->id);
             //delete then update
@@ -735,7 +735,7 @@ where uf.userid = $id
         if (!isset($data->filename)) {
             $filename = $DB->get_record_sql('select filename from {tiny_cursive_files} where resourceid = :resourceid
   AND cmid = :cmid
-  AND modulename = :modulename', ['userid' => $id, 'cmid' => $cmid, 'modulename' => $modulename]);
+  AND modulename = :modulename', ['resourceid' => $id, 'cmid' => $cmid, 'modulename' => $modulename]);
 
             $data['filename'] = $filename->filename;
         }

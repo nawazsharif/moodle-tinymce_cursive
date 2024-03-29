@@ -96,7 +96,7 @@ $functions = [
         'type' => 'write',
         'ajax' => true,
         'capabilities' => 'tiny_cursive/cursive:view',
-        'services' => array(MOODLE_OFFICIAL_MOBILE_SERVICE),
+        'services' => [MOODLE_OFFICIAL_MOBILE_SERVICE],
     ],
     'cursive_get_assign_grade_comment' => [
         'classname' => 'cursive_json_func_data',
