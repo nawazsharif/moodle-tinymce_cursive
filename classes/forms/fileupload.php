@@ -21,20 +21,21 @@
  * @author eLearningstack
  */
 
+namespace MoodleHQ\editor\tiny\plugins\cursive\classes\forms;
+use moodleform;
+
 defined('MOODLE_INTERNAL') || die;
 require_once($CFG->libdir . '/formslib.php');
 
-class filterreportform extends moodleform {
-    public function definition() {
+class fileupload extends moodleform
+{
+    public function definition()
+    {
         global $DB, $USER;
-        $courses = $DB->get_records('course');
-        $options = [];
 
-        foreach ($courses as $course) {
-            $options[$course->id] = $course->fullname;
-        }
-        $mform = &$this->_form;
-        $mform->addElement('select', 'coursename', 'Course', $options);
-        $mform->addRule('coursename', null, 'required', null, 'client');
+        $mform = $this->_form; // Don't forget the underscore!
+
+        $mform->addElement('hidden', 'draftid', ''); // Add elements to your form
+        $mform->addRule('draftid', get_string('maximumchars', '', 512), 'maxlength', 255, 'client');
     }
 }
