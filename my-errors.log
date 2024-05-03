@@ -1,0 +1,54 @@
+Payload received
+{"person_id":"17","file_id":"21","character_count":227,"total_time_seconds":57,"characters_per_minute":238,"key_count":246,"keys_per_minute":258,"word_count":25,"words_per_minute":26,"backspace_percent":6.6100000000000003,"copy_behaviour":0,"copy_behavior":0,"score":null}
+Request end
+Payload received
+{"person_id":"17","file_id":"22","character_count":141,"total_time_seconds":30,"characters_per_minute":286,"key_count":143,"keys_per_minute":290,"word_count":19,"words_per_minute":38,"backspace_percent":0,"copy_behaviour":0,"copy_behavior":0,"score":null}
+Request end
+Payload received
+{"person_id":"17","file_id":"23","character_count":176,"total_time_seconds":23,"characters_per_minute":467,"key_count":192,"keys_per_minute":510,"word_count":20,"words_per_minute":53,"backspace_percent":6.25,"copy_behaviour":0,"copy_behavior":0,"score":null}
+Request end
+Payload received
+{"person_id":"17","file_id":"24","character_count":102,"total_time_seconds":11,"characters_per_minute":550,"key_count":102,"keys_per_minute":550,"word_count":12,"words_per_minute":65,"backspace_percent":0,"copy_behaviour":0,"copy_behavior":0,"score":null}
+Request end
+Payload received
+{"person_id":"17","file_id":"25","character_count":243,"total_time_seconds":34,"characters_per_minute":431,"key_count":296,"keys_per_minute":525,"word_count":34,"words_per_minute":60,"backspace_percent":21.809999999999999,"copy_behaviour":0,"copy_behavior":0,"score":null}
+Request end
+Payload received
+{"file_id":4351,"total_time_seconds":9,"key_count":31,"keys_per_minute":206,"character_count":29,"characters_per_minute":193,"word_count":4,"words_per_minute":27,"backspace_percent":0,"score":-1,"copy_behavior":-1}
+Request end
+Payload received
+{"person_id":"10","file_id":"40","character_count":5,"total_time_seconds":1,"characters_per_minute":520,"key_count":5,"keys_per_minute":520,"word_count":1,"words_per_minute":104,"backspace_percent":0,"copy_behaviour":0,"copy_behavior":0,"score":null}
+Request end
+Payload received
+{"person_id":"10","file_id":"39","character_count":723,"total_time_seconds":139,"characters_per_minute":313,"key_count":760,"keys_per_minute":329,"word_count":104,"words_per_minute":45,"backspace_percent":4.7000000000000002,"copy_behaviour":0.29999999999999999,"copy_behavior":0.29999999999999999,"score":0}
+Request end
+Payload received
+{"person_id":"10","file_id":"38","character_count":592,"total_time_seconds":96,"characters_per_minute":370,"key_count":624,"keys_per_minute":390,"word_count":120,"words_per_minute":75,"backspace_percent":4.7300000000000004,"copy_behaviour":0,"copy_behavior":0,"score":0}
+Request end
+Payload received
+{"person_id":"13","file_id":"46","character_count":658,"total_time_seconds":117,"characters_per_minute":338,"key_count":747,"keys_per_minute":384,"word_count":105,"words_per_minute":54,"backspace_percent":8.5099999999999998,"copy_behaviour":0,"copy_behavior":0,"score":-1}
+Request end
+Payload received
+{"person_id":"13","file_id":"47","character_count":602,"total_time_seconds":78,"characters_per_minute":462,"key_count":624,"keys_per_minute":479,"word_count":110,"words_per_minute":84,"backspace_percent":2.1600000000000001,"copy_behaviour":0,"copy_behavior":0,"score":1}
+Request end
+Payload received
+{"person_id":"13","file_id":"48","character_count":94,"total_time_seconds":19,"characters_per_minute":290,"key_count":103,"keys_per_minute":318,"word_count":17,"words_per_minute":52,"backspace_percent":5.3200000000000003,"copy_behaviour":0,"copy_behavior":0,"score":null}
+Request end
+Payload received
+{"person_id":"13","file_id":"49","character_count":651,"total_time_seconds":126,"characters_per_minute":310,"key_count":717,"keys_per_minute":342,"word_count":114,"words_per_minute":54,"backspace_percent":8.7599999999999998,"copy_behaviour":0,"copy_behavior":0,"score":1}
+Request end
+Payload received
+{"person_id":"13","file_id":"46","character_count":660,"total_time_seconds":17425,"characters_per_minute":2,"key_count":751,"keys_per_minute":3,"word_count":105,"words_per_minute":0,"backspace_percent":8.4800000000000004,"copy_behaviour":0,"copy_behavior":0,"score":1}
+Request end
+Payload received
+{"person_id":"11","file_id":"50","character_count":469,"total_time_seconds":120,"characters_per_minute":235,"key_count":525,"keys_per_minute":263,"word_count":83,"words_per_minute":42,"backspace_percent":5.7599999999999998,"copy_behaviour":0,"copy_behavior":0,"score":0.56999999999999995}
+Request end
+Payload received
+{"person_id":"10","file_id":"36","character_count":637,"total_time_seconds":544910,"characters_per_minute":0,"key_count":669,"keys_per_minute":0,"word_count":115,"words_per_minute":0,"backspace_percent":4.2400000000000002,"copy_behaviour":0,"copy_behavior":0,"score":0}
+Request end
+Payload received
+{"person_id":"10","file_id":"35","character_count":670,"total_time_seconds":544829,"characters_per_minute":0,"key_count":702,"keys_per_minute":0,"word_count":128,"words_per_minute":0,"backspace_percent":3.5800000000000001,"copy_behaviour":0,"copy_behavior":0,"score":0}
+Request end
+Payload received
+{"person_id":"11","file_id":"52","character_count":72,"total_time_seconds":48,"characters_per_minute":90,"key_count":81,"keys_per_minute":102,"word_count":13,"words_per_minute":16,"backspace_percent":4.1699999999999999,"copy_behaviour":0,"copy_behavior":0,"score":null}
+Request end
