@@ -119,7 +119,8 @@ define(["jquery", "core/ajax", "core/str", "core/templates", "./replay"], functi
                     }
                     var html= '<div class="justify-content-center d-flex">' +
                         '<button onclick="popup_item(' + userid + ')" data-id=' + userid + ' class="mr-2 ' + chart + '" style="' + st + '"></button>' +
-                        '<a href="#" onclick="video_playback(' + userid + ', \'' + filepath + '\')" data-filepath="' + filepath + '" data-id="playback_' + userid + '" class="mr-2 video_playback_icon ' + video + '" style="' + st + '"></a>' +
+                        '<a href="#" onclick="video_playback(' + userid + ', \'' + filepath + '\')" data-filepath="' +
+                            filepath + '" data-id="playback_' + userid + '" class="mr-2 video_playback_icon ' + video + '" style="' + st + '"></a>' +
                         '<button onclick="myFunction()" data-id=' + userid + ' class="' + icon + ' " style="border:none; ' + color + ';"></button>' +
                         '</div>      ';
 

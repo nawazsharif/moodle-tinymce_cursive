@@ -197,6 +197,9 @@ aria-hidden="true" style = "padding-left:25px; font-size:x-large;"></i>
 
     public function user_writing_report($users, $userprofile, $username, $page = 0, $limit = 5, $baseurl = '') {
         global $CFG, $DB, $OUTPUT;
+        require_once($CFG->dirroot."/lib/editor/tiny/plugins/cursive/lib.php");
+
+
         echo "Total Words: $userprofile->word_count</br>";
         $seconds = $userprofile->total_time;
         $secs = $seconds % 60;
@@ -257,7 +260,13 @@ aria-haspopup="true" aria-expanded="false">Select Course</button>';
             $row = [];
             $content = $this->get_html_modal($user, $courseid > 0 ? $getmodulename->name : 'Stats');
             $playbackcontent = $this->get_playback_modal($user, $courseid > 0 ? $getmodulename->name : 'Playback Video');
-            $filepath = urlencode($CFG->wwwroot . '/lib/editor/tiny/plugins/cursive/userdata/' . $user->filename);
+
+            // Saving the file to moodledata
+            $context = context_system::instance();
+
+            // Creat URL of the json file from moodledata
+            $filepath = file_urlcreate ($context, $user);
+
             $row[] = $getmodulename ? $getmodulename->name : '';
             $row[] = date("l jS \of F Y h:i:s A", $user->timemodified);
             $row[] = '<a data-filepath ="'.$filepath.'" data-id=playback_' . $user->attemptid . '  href ="#" class = "video_playback_icon">

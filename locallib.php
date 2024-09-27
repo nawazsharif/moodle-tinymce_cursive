@@ -146,42 +146,41 @@ FROM {tiny_cursive_user_writing} uw
 }
 
 function get_user_submissions_data($resourceid, $modulename, $cmid, $courseid = 0) {
-    $attempts = [];
-    global $DB;
+    global $CFG, $DB, $OUTPUT;
+    require_once($CFG->dirroot."/lib/editor/tiny/plugins/cursive/lib.php");
 
+    $attempts = [];
     $attempts = "SELECT  uw.total_time_seconds ,uw.word_count ,uw.words_per_minute,
-        uw.backspace_percent,uw.score,uw.copy_behavior,uf.resourceid , uf.modulename,uf.userid, uf.filename
-FROM {tiny_cursive_user_writing} uw
-        INNER JOIN {tiny_cursive_files} uf
-            ON uw.file_id =uf.id
-where uf.userid =$resourceid
-  AND uf.cmid =$cmid
-  AND uf.modulename='" . $modulename . "'";
+                         uw.backspace_percent,uw.score,uw.copy_behavior,uf.resourceid , uf.modulename,uf.userid, uf.filename
+                 FROM {tiny_cursive_user_writing} uw
+                      INNER JOIN {tiny_cursive_files} uf ON uw.file_id = uf.id
+                 WHERE uf.userid = ". $resourceid ." AND uf.cmid = " . $cmid ." AND uf.modulename = '" . $modulename . "'";
+
     if ($courseid != 0) {
         $attempts .= "  AND uf.courseid=$courseid";
     }
+
     $res = $DB->get_record_sql($attempts);
 
-
-
     $attempts = "SELECT  uw.total_time_seconds ,uw.word_count ,uw.words_per_minute,
-        uw.backspace_percent,uw.score,uw.copy_behavior,uf.resourceid , uf.modulename,uf.userid, uf.filename
-FROM {tiny_cursive_user_writing} uw
-        INNER JOIN {tiny_cursive_files} uf
-            ON uw.file_id =uf.id
-where uf.userid = $resourceid
-  AND uf.cmid = $cmid
-  AND uf.modulename='" . $modulename . "'";
+                        uw.backspace_percent,uw.score,uw.copy_behavior,uf.resourceid , uf.modulename,uf.userid, uf.filename
+                 FROM {tiny_cursive_user_writing} uw
+                    INNER JOIN {tiny_cursive_files} uf ON uw.file_id =uf.id
+                 WHERE uf.userid = ". $resourceid ." AND uf.cmid = ".$cmid. " AND uf.modulename='" . $modulename . "'";
+
     if ($courseid != 0) {
         $attempts .= "  AND uf.courseid = $courseid";
     }
     $data = $DB->get_record_sql($attempts);
     if (!isset($data->filename)) {
-        $filename = $DB->get_record_sql('select filename from {tiny_cursive_files} where resourceid = :resourceid
-  AND cmid = :cmid
-  AND modulename = :modulename', ['resourceid' => $resourceid, 'cmid' => $cmid, 'modulename' => $modulename]);
+        $sql = 'SELECT id as fileid
+                FROM {tiny_cursive_files} 
+                WHERE userid = '. $resourceid .' AND cmid = :cmid AND modulename = :modulename';
+        $filename = $DB->get_record_sql( $sql, ['userid' => $resourceid, 'cmid' => $cmid, 'modulename' => $modulename]);
 
-        $data['filename'] = $filename->filename;
+        $context = context_system::instance();
+        $data['filename'] = file_urlcreate ($context, $filename);
+
     }
     $res = $data;
 
